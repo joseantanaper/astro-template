@@ -12,6 +12,7 @@ export const $config = atom({})
 export const $last = atom('none')
 export const $language = atom('')
 export const $theme = atom('')
+export const $username = atom('')
 
 export const setConfig = (key: keyof Config, value: string) => {
   let config: Config = $config.get() as Config
@@ -53,5 +54,17 @@ export const setLanguage = (language: string) => {
     setCookie('language', language)
     localStorage.setItem('language', language)
     sessionStorage.setItem('language', language)
+  }
+}
+
+export const setUsername = (username: string) => {
+  $username.set(username)
+  setConfig('username', username)
+  console.log('store', 'setUsername', username)
+  if (typeof window !== 'undefined') {
+    console.log('store', 'setUsername (localStorage)', username)
+    setCookie('username', username)
+    localStorage.setItem('username', username)
+    sessionStorage.setItem('username', username)
   }
 }

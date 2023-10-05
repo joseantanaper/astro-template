@@ -1,9 +1,9 @@
 ---
 import Base from './Base.astro'
-const { title } = Astro.props
+const { title, subtitle } = Astro.props
 ---
 
-<Base {title}>
+<Base {title} {subtitle}>
   <slot />
   <script>
     // document.addEventListener(

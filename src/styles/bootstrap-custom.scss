@@ -1,1 +1,17 @@
 @import '/node_modules/bootstrap/scss/bootstrap';
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  border-top: 121px solid transparent;
+  overflow-y: scroll;
+}
+
+nav.navbar.app-main-navbar {
+}
+nav.navbar.app-sub-navbar {
+  margin-top: 65px;
+  z-index: 1;
+}

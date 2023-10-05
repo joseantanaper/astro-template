@@ -1,0 +1,21 @@
+---
+interface Props {
+  times?: number
+}
+const { times = 10 } = Astro.props
+const loremipsum =
+  'Lorem ipsum dolor sit amet consectetur adipiscing elit dignissim, habitant tempus mollis auctor viverra penatibus donec vulputate, erat himenaeos quis purus integer molestie turpis. Sollicitudin curae augue mus montes cum dis quam lectus tincidunt ornare praesent, vivamus fames ad netus ante ultrices aliquam sapien laoreet pellentesque iaculis, sociosqu feugiat quis enim dui felis ultricies natoque fusce rhoncus. Parturient mollis facilisis nam condimentum vestibulum class, viverra nibh pharetra fames senectus scelerisque tempor, aliquam cum tincidunt eros lectus. Praesent commodo diam faucibus dapibus ligula vehicula, consequat senectus neque sagittis habitasse tristique feugiat, nascetur tortor dis sapien tincidunt. Montes eleifend purus primis nam fames at odio iaculis turpis semper, nostra aliquet etiam orci pellentesque dis suspendisse sodales in. Dui vitae arcu imperdiet viverra facilisis lobortis risus dictum aliquet quam nec facilisi sagittis, est habitasse cum purus hendrerit himenaeos montes non dapibus pretium inceptos.'
+const lorem: Array<string> = []
+for (let i = 1; i <= times; i++) {
+  lorem.push(loremipsum)
+}
+---
+
+<div>
+  <h2>Lorem Ipsum</h2>
+  {
+    lorem.map((entry) => {
+      return entry
+    })
+  }
+</div>

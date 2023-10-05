@@ -29,7 +29,7 @@ const validate = async ({ locals }, next) => {
 
 const title = async ({ locals }, next) => {
   console.log('middleware', 'title')
-  locals.title = `App ${locals.cookie.username}`
+  locals.localsTitle = `App ${locals.cookie.username}`
   return next()
 }
 

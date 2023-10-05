@@ -1,21 +1,25 @@
 ---
 import Layout from '../layouts/Layout.astro'
+import LoremIpsum from '../components/widgets/LoremIpsum.astro'
 ---
 
-<Layout title="Index" />
-<script>
-  document.addEventListener(
-    'astro:page-load',
-    () => {
-      console.log('index', 'astro:page-load', 'once')
-    },
-    { once: true }
-  )
-  document.addEventListener('astro:page-load', () => {
-    console.log('index', 'astro:page-load')
-  })
-  document.addEventListener('astro:after-swap', () => {
-    console.log('index', 'astro:after-swap')
-  })
-</script>
+<Layout title="Index" subtitle="Subtitle is here">
+  <LoremIpsum times={100} />
+
+  <script>
+    document.addEventListener(
+      'astro:page-load',
+      () => {
+        console.log('index', 'astro:page-load', 'once')
+      },
+      { once: true }
+    )
+    document.addEventListener('astro:page-load', () => {
+      console.log('index', 'astro:page-load')
+    })
+    document.addEventListener('astro:after-swap', () => {
+      console.log('index', 'astro:after-swap')
+    })
+  </script>
+</Layout>
 
