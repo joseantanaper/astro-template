@@ -1,4 +1,5 @@
 ---
+import '../styles/bootstrap-custom.scss'
 import { Debug } from 'astro:components'
 import Title from '../components/Title.astro'
 import Navigation from '../components/Navigation.astro'
@@ -82,7 +83,7 @@ setTheme(cookie.theme as string)
       <slot />
     </main>
     <style is:global>
-      :root {
+      /* :root {
         --accent: 136, 58, 234;
         --accent-light: 224, 204, 250;
         --accent-dark: 49, 10, 101;
@@ -168,7 +169,7 @@ setTheme(cookie.theme as string)
         grid-template-columns: repeat(auto-fit, minmax(24ch, 1fr));
         gap: 2rem;
         padding: 0;
-      }
+      } */
     </style>
     <script>
       import { setLast } from '../store/store'

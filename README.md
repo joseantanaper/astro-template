@@ -72,14 +72,29 @@ npm i --save-dev prettier-plugin-astro prettier
 
 ## ⌨ UI Framework
 
-```sh
-npm install bootstrap@latest
-npm install -g sass
-src/styles/bootstrap-custom.scss
-`@import "/node_modules/bootstrap/scss/bootstrap";`
-src/layouts/Layout.astro
-`import '/styles/bootstrap-custom.css';`
 ```
+npm install -D sass
+npm install bootstrap@latest --save-dev
+```
+
+      Alt:
+
+      ```sh
+      npm install -g sass
+      npm install bootstrap@latest
+      ```
+
+src/styles/bootstrap-custom.scss
+
+    ```scss
+    @import "/node_modules/bootstrap/scss/bootstrap";
+    ```
+
+src/layouts/Layout.astro
+
+    ```ts
+    import '/styles/bootstrap-custom.scss';
+    ```
 
 ## Nanostores: share state between components
 
@@ -100,4 +115,8 @@ npm run build
 4. View "Actions" to see when deploy is finished.
 
 ---
+
+```
+
+```
 
