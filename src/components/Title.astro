@@ -1,0 +1,44 @@
+---
+const { title, cookie } = Astro.props
+---
+
+<>
+  <h1># {title}</h1>
+  <hr />
+  <span>Now on: <span data-nowx>{cookie.last}</span></span>|
+  <span>Theme: <span data-themex>{cookie.theme}</span></span>|
+  <span>Language: <span data-languagex>{cookie.language}</span></span>
+  <hr />
+</>
+
+<script>
+  import {
+    $last,
+    $theme,
+    $language,
+    setTheme,
+    setLanguage
+  } from '../store/store'
+  import { getCookie } from '../utils/cookie'
+
+  const _componentInitx = () => {
+    $last.subscribe((last) => {
+      console.log('Title', '$last', last)
+      if (last) document.querySelectorAll('span[data-nowx]')[0].innerHTML = last
+    })
+
+    $theme.subscribe((theme) => {
+      console.log('Title', '$theme', theme)
+      if (theme)
+        document.querySelectorAll('span[data-themex]')[0].innerHTML = theme
+    })
+
+    $language.subscribe((language) => {
+      console.log('Title', '$language', language)
+      if (language)
+        document.querySelectorAll('span[data-languagex]')[0].innerHTML =
+          language
+    })
+  }
+  document.addEventListener('astro:page-load', _componentInitx)
+</script>

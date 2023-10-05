@@ -1,0 +1,102 @@
+---
+const { cookie } = Astro.props
+---
+
+<>
+  <a href="/">Go to /</a>&nbsp;
+  <a href="/second">Go to /second</a>
+   &nbsp;&nbsp;
+  <button data-name="app-theme-light">Light</button>
+  <button data-name="app-theme-dark">Dark</button>
+   &nbsp;&nbsp;
+  <button data-name="app-language-es">ES</button>
+  <button data-name="app-language-en">EN</button>
+  <hr />
+  {JSON.stringify(cookie)}
+  <hr />
+  <span>Now on: <span data-now>{cookie.last}</span></span>|
+  <span>Theme: <span data-theme>{cookie.theme}</span></span>|
+  <span>Language: <span data-language>{cookie.language}</span></span>
+  <hr />
+</>
+
+<script>
+  import {
+    $last,
+    $theme,
+    $language,
+    $config,
+    setConfig,
+    setTheme,
+    setLanguage
+  } from '../store/store'
+  import { getCookie } from '../utils/cookie'
+
+  const _componentInit = () => {
+    $last.subscribe((last) => {
+      console.log('Navigation', '$last', last)
+      if (last) document.querySelectorAll('span[data-now]')[0].innerHTML = last
+    })
+
+    $theme.subscribe((theme) => {
+      console.log('Navigation', '$theme', theme)
+      if (theme)
+        document.querySelectorAll('span[data-theme]')[0].innerHTML = theme
+    })
+
+    $language.subscribe((language) => {
+      console.log('Navigation', '$language', language)
+      if (language)
+        document.querySelectorAll('span[data-language]')[0].innerHTML = language
+    })
+
+    $config.subscribe((config) => {
+      console.log('Navigation', '$config', config)
+    })
+
+    document.querySelectorAll('a').forEach((elem) => {
+      elem.addEventListener('click', (e) => {
+        console.log(
+          'Navigation',
+          '_store',
+          (e.target as HTMLAnchorElement).href
+        )
+      })
+    })
+
+    document
+      .querySelectorAll('button[data-name="app-theme-light"]')
+      .forEach((elem) => {
+        elem.addEventListener('click', () => {
+          console.log('Navigation', 'app-theme-light clicked')
+          setTheme('light')
+          //setConfig('theme', 'light')
+        })
+      })
+    document
+      .querySelectorAll('button[data-name="app-theme-dark"]')
+      .forEach((elem) => {
+        elem.addEventListener('click', () => {
+          console.log('Navigation', 'app-theme-dark clicked')
+          setTheme('dark')
+          //setConfig('theme', 'dark')
+        })
+      })
+
+    document
+      .querySelectorAll('button[data-name="app-language-es"]')
+      .forEach((elem) => {
+        elem.addEventListener('click', () => {
+          setLanguage('es')
+        })
+      })
+    document
+      .querySelectorAll('button[data-name="app-language-en"]')
+      .forEach((elem) => {
+        elem.addEventListener('click', () => {
+          setLanguage('en')
+        })
+      })
+  }
+  document.addEventListener('astro:page-load', _componentInit)
+</script>

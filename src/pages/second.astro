@@ -2,20 +2,19 @@
 import Layout from '../layouts/Layout.astro'
 ---
 
-<Layout title="Index" />
+<Layout title="Second" />
 <script>
   document.addEventListener(
     'astro:page-load',
     () => {
-      console.log('index', 'astro:page-load', 'once')
+      console.log('second', 'astro:page-load', 'once')
     },
     { once: true }
   )
   document.addEventListener('astro:page-load', () => {
-    console.log('index', 'astro:page-load')
+    console.log('second', 'astro:page-load')
   })
   document.addEventListener('astro:after-swap', () => {
-    console.log('index', 'astro:after-swap')
+    console.log('second', 'astro:after-swap')
   })
 </script>
-

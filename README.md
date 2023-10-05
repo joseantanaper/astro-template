@@ -1,54 +1,103 @@
-# Astro Starter Kit: Basics
+# 🚀 Astro Landing base project
+
+## ⌨ Setup
+
+Install astro
 
 ```sh
-npm create astro@latest -- --template basics
+npm install astro
 ```
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/withastro/astro/tree/latest/examples/basics)
-[![Open with CodeSandbox](https://assets.codesandbox.io/github/button-edit-lime.svg)](https://codesandbox.io/p/sandbox/github/withastro/astro/tree/latest/examples/basics)
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/withastro/astro?devcontainer_path=.devcontainer/basics/devcontainer.json)
+> WARNING: DON'T install globally (DON'T use -g parameter).
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+## ⌨ Create project
 
-![just-the-basics](https://github.com/withastro/astro/assets/2244813/a0a5533c-a856-4198-8470-2d67b1d7c554)
+Run Setup Wizard:
 
-## 🚀 Project Structure
-
-Inside of your Astro project, you'll see the following folders and files:
-
-```text
-/
-├── public/
-│   └── favicon.svg
-├── src/
-│   ├── components/
-│   │   └── Card.astro
-│   ├── layouts/
-│   │   └── Layout.astro
-│   └── pages/
-│       └── index.astro
-└── package.json
+```sh
+npm create astro@latest
 ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+Start Astro:
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+```shell
+npm run dev
+```
 
-Any static assets, like images, can be placed in the `public/` directory.
+## ⌨ OPTIONAL: TypeScript (included in Astro setup)
 
-## 🧞 Commands
+```sh
+npm install typescript@latest -g
+tsc --init
+```
 
-All commands are run from the root of the project, from a terminal:
+    - F1: Restart TS server
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+## ⌨ ESLint support
 
-## 👀 Want to learn more?
+```sh
+npm install --save-dev eslint eslint-plugin-astro
+npm install --save-dev @typescript-eslint/parser
+[npm install --save-dev eslint-plugin-jsx-a11y]
+npx eslint --init
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+```
+
+## ⌨ Prettier support
+
+```sh
+npm i --save-dev prettier-plugin-astro prettier
+```
+
+.prettierrc
+
+```json
+{
+  "trailingComma": "none",
+  "tabWidth": 2,
+  "semi": false,
+  "singleQuote": true,
+  "endOfLine": "crlf",
+  "plugins": ["prettier-plugin-astro"],
+  "overrides": [
+    {
+      "files": ["*.astro"],
+      "options": {
+        "parser": "astro"
+      }
+    }
+  ]
+}
+```
+
+## ⌨ UI Framework
+
+```sh
+npm install bootstrap@latest
+npm install -g sass
+src/styles/bootstrap-custom.scss
+`@import "/node_modules/bootstrap/scss/bootstrap";`
+src/layouts/Layout.astro
+`import '/styles/bootstrap-custom.css';`
+```
+
+## Nanostores: share state between components
+
+```sh
+npm install nanostores
+```
+
+# Deploy from private repo to public GitHub pages
+
+1. Build the project:
+
+```
+npm run build
+```
+
+2. Copy the "dist" folder content manually to github.io repo.
+3. Commit the upload in the upload finish window.
+4. View "Actions" to see when deploy is finished.
+
+---
+
