@@ -72,9 +72,10 @@ npm i --save-dev prettier-plugin-astro prettier
 
 ## ⌨ UI Framework
 
-```
+```sh
 npm install -D sass
 npm install bootstrap@latest --save-dev
+npm install bootstrap-icons@latest --save-dev
 ```
 
       Alt:

@@ -1,5 +1,5 @@
 ---
-
+const { cookie } = Astro.props
 ---
 
 <nav class="navbar app-main-navbar fixed-top bg-body-tertiary fixed-top">
@@ -15,7 +15,7 @@
         aria-controls="offcanvasNavbarLeft"
         aria-label="Toggle navigation"
       >
-        <span class="navbar-toggler-icon"></span>
+        <i class="bi bi-layout-sidebar-inset"></i>
       </button>
     </div>
 
@@ -29,25 +29,28 @@
     <div class="vr ms-3 me-3"></div>
 
     <!-- Right Navbar Button -->
-    <button type="button" class="btn">
-      <span class="navbar-toggler-icon"></span>
+    <button type="button" class="btn text-nowrap d-inline-flex text-uppercase">
+      <i class="bi bi-translate"></i>
+      <span class="d-none d-lg-block text-nowrap ms-1">{cookie.language}</span>
     </button>
-    <button type="button" class="btn">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <button type="button" class="btn">
-      <span class="navbar-toggler-icon"></span>
+    <button
+      name="app-theme-toggler"
+      type="button"
+      class="btn text-nowrap d-inline-flex text-capitalize"
+    >
+      <i class="bi bi-sun"></i>
+      <span class="d-none d-lg-block text-nowrap ms-1">{cookie.theme}</span>
     </button>
 
     <button
-      class="navbar-toggler"
+      class="navbar-toggler ms-3"
       type="button"
       data-bs-toggle="offcanvas"
       data-bs-target="#offcanvasNavbar"
       aria-controls="offcanvasNavbar"
       aria-label="Toggle navigation"
     >
-      <span class="navbar-toggler-icon"></span>
+      <i class="bi bi-layout-sidebar-inset-reverse"></i>
     </button>
 
     <!-- Menu Left -->
@@ -57,15 +60,17 @@
       id="offcanvasNavbarLeft"
       aria-labelledby="offcanvasNavbarLeftLabel"
     >
-      <div class="offcanvas-header">
+      <div class="offcanvas-header bg-body-tertiary border-bottom shadow-sm">
+        <button
+          class="btn btn-danger"
+          type="button"
+          data-bs-dismiss="offcanvas"
+        >
+          <i class="bi bi-chevron-bar-left"></i>
+        </button>
         <h5 class="offcanvas-title" id="offcanvasNavbarLeftLabel">
           Left Offcanvas
         </h5>
-        <button
-          type="button"
-          class="btn-close"
-          data-bs-dismiss="offcanvas"
-          aria-label="Close"></button>
       </div>
       <div class="offcanvas-body">
         <ul class="navbar-nav justify-content-start flex-grow-1 pe-3">
@@ -116,15 +121,17 @@
       id="offcanvasNavbar"
       aria-labelledby="offcanvasNavbarLabel"
     >
-      <div class="offcanvas-header">
+      <div class="offcanvas-header bg-body-tertiary border-bottom shadow-sm">
         <h5 class="offcanvas-title" id="offcanvasNavbarLabel">
           Right Offcanvas
         </h5>
         <button
+          class="btn btn-danger"
           type="button"
-          class="btn-close"
           data-bs-dismiss="offcanvas"
-          aria-label="Close"></button>
+        >
+          <i class="bi bi-chevron-bar-right"></i>
+        </button>
       </div>
       <div class="offcanvas-body">
         <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
@@ -170,3 +177,54 @@
   </div>
   <!-- Navbar End -->
 </nav>
+
+<script>
+  import { $theme, storeTheme, retrieveTheme } from '../../store/store'
+  import { getCookie } from '../../utils/cookie'
+
+  const setTheme = (
+    elem: HTMLButtonElement | null,
+    theme: 'light' | 'dark' = 'light'
+  ) => {
+    elem =
+      elem ?? document.querySelectorAll("button[name='app-theme-toggler']")[0]
+    document.documentElement?.setAttribute('data-bs-theme', theme)
+    elem!
+      .getElementsByTagName('i')[0]
+      .setAttribute(
+        'class',
+        theme === null || theme === 'dark' ? 'bi bi-sun' : 'bi bi-moon'
+      )
+    elem!.getElementsByTagName('span')[0].innerText = theme
+    storeTheme(theme)
+  }
+
+  const defaultTheme = () => {
+    // No es la manera, porque tarda. Hay que utilizar los nanostores
+    const defaultTheme = getCookie('theme')
+    setTheme(
+      null,
+      defaultTheme === 'light' || defaultTheme === 'dark'
+        ? defaultTheme
+        : 'light'
+    )
+  }
+
+  const componentInit = () => {
+    document
+      .querySelectorAll("button[name='app-theme-toggler']")
+      .forEach((elem: Element) => {
+        elem.addEventListener('click', (e: Event) => {
+          const currentTheme =
+            document.documentElement?.getAttribute('data-bs-theme')
+          if (currentTheme === null || currentTheme === 'light') {
+            setTheme(elem as HTMLButtonElement, 'dark')
+          } else {
+            setTheme(elem as HTMLButtonElement, 'light')
+          }
+        })
+      })
+  }
+
+  window.document.addEventListener('astro:page-load', componentInit)
+</script>

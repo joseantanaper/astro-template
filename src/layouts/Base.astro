@@ -5,7 +5,7 @@ import Title from '../components/Title.astro'
 import Subheader from '../components/navigation/Subheader.astro'
 import Header from '../components/navigation/Header.astro'
 import { ViewTransitions } from 'astro:transitions'
-import { setTheme } from '../store/store'
+import { storeTheme } from '../store/store'
 interface Props {
   title?: string
   subtitle?: string
@@ -21,7 +21,7 @@ const cookie = {
     : '',
   theme: Astro.cookies.has('theme') ? Astro.cookies.get('theme')!.value : ''
 }
-setTheme(cookie.theme as string)
+// storeTheme(cookie.theme as string)
 // $theme.set(cookie.theme as string)
 // console.log(cookie, Astro.cookies.get('last'))
 ---
@@ -150,19 +150,20 @@ setTheme(cookie.theme as string)
     <script src="../../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
     ></script>
     <script>
-      import { setLast } from '../store/store'
+      import { storeLast } from '../store/store'
 
       document.addEventListener(
         'astro:page-load',
         () => {
           console.log('Base', 'astro:page-load', 'once')
+          // document.documentElement.style.opacity = 1
         },
         { once: true }
       )
 
       document.addEventListener('astro:page-load', () => {
         console.log('Base', 'astro:page-load')
-        setLast(window.location.href)
+        storeLast(window.location.href)
       })
 
       document.addEventListener('astro:after-swap', () => {

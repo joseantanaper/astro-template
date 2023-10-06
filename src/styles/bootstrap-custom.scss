@@ -1,3 +1,13 @@
+// Default variable overrides
+$modal-backdrop-bg: black;
+$modal-backdrop-opacity: 0.8;
+
+$border-radius: 1px;
+
+$dropdown-item-padding-y: 0.6rem;
+
+// Bootstrap imports
+@import '/node_modules/bootstrap-icons/font/bootstrap-icons.css';
 @import '/node_modules/bootstrap/scss/bootstrap';
 
 * {
@@ -9,9 +19,52 @@ body {
   overflow-y: scroll;
 }
 
+nav.navbar {
+}
 nav.navbar.app-main-navbar {
 }
 nav.navbar.app-sub-navbar {
-  margin-top: 65px;
+  opacity: 0.9;
+  position: fixed;
+  width: 100vw;
+  top: 65px;
+  margin-top: 0px;
   z-index: 1;
+}
+button.navbar-toggler,
+.offcanvas-header button {
+  min-width: 56px;
+  height: 40px;
+  i {
+    font-size: 110%;
+  }
+}
+button.navbar-toggler,
+.btn {
+  i {
+    text-shadow: 0px 0px 1px gray !important;
+  }
+  span {
+    filter: drop-shadow(0px 0px 1px gray !important);
+  }
+}
+
+// .offcanvas-backdrop {
+//   background: black !important;
+//   // opacity: 0.8 !important;
+//   // transition: 1s;
+// }
+
+@keyframes globalFadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+html {
+  animation-name: globalFadeIn;
+  animation-duration: 250ms;
 }
