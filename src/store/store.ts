@@ -70,5 +70,6 @@ export const storeUsername = (username: string) => {
 }
 
 export const retrieveTheme = () => {
+  console.log('store', 'retrieveTheme', $theme.get())
   return $theme.get()
 }

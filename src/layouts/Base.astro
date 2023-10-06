@@ -27,7 +27,7 @@ const cookie = {
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="en" data-bs-theme="dark">
   <head>
     <meta charset="UTF-8" />
     <meta name="description" content="Astro description" />
@@ -150,7 +150,11 @@ const cookie = {
     <script src="../../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
     ></script>
     <script>
-      import { storeLast } from '../store/store'
+      import { $theme, storeLast } from '../store/store'
+
+      $theme.subscribe((theme) => {
+        console.log('Base', '$theme.subscribe', theme)
+      })
 
       document.addEventListener(
         'astro:page-load',
@@ -168,6 +172,10 @@ const cookie = {
 
       document.addEventListener('astro:after-swap', () => {
         console.log('Base', 'astro:after-swap')
+        document.documentElement?.setAttribute(
+          'data-bs-theme',
+          localStorage.getItem('theme') ?? 'light'
+        )
       })
     </script>
   </body>

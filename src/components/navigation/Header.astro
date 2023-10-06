@@ -1,5 +1,6 @@
 ---
 const { cookie } = Astro.props
+import ThemeToggler from './ThemeToggler.astro'
 ---
 
 <nav class="navbar app-main-navbar fixed-top bg-body-tertiary fixed-top">
@@ -33,14 +34,8 @@ const { cookie } = Astro.props
       <i class="bi bi-translate"></i>
       <span class="d-none d-lg-block text-nowrap ms-1">{cookie.language}</span>
     </button>
-    <button
-      name="app-theme-toggler"
-      type="button"
-      class="btn text-nowrap d-inline-flex text-capitalize"
-    >
-      <i class="bi bi-sun"></i>
-      <span class="d-none d-lg-block text-nowrap ms-1">{cookie.theme}</span>
-    </button>
+
+    <ThemeToggler {cookie} />
 
     <button
       class="navbar-toggler ms-3"
@@ -179,52 +174,10 @@ const { cookie } = Astro.props
 </nav>
 
 <script>
-  import { $theme, storeTheme, retrieveTheme } from '../../store/store'
-  import { getCookie } from '../../utils/cookie'
+  import { $theme } from '../../store/store'
 
-  const setTheme = (
-    elem: HTMLButtonElement | null,
-    theme: 'light' | 'dark' = 'light'
-  ) => {
-    elem =
-      elem ?? document.querySelectorAll("button[name='app-theme-toggler']")[0]
-    document.documentElement?.setAttribute('data-bs-theme', theme)
-    elem!
-      .getElementsByTagName('i')[0]
-      .setAttribute(
-        'class',
-        theme === null || theme === 'dark' ? 'bi bi-sun' : 'bi bi-moon'
-      )
-    elem!.getElementsByTagName('span')[0].innerText = theme
-    storeTheme(theme)
-  }
-
-  const defaultTheme = () => {
-    // No es la manera, porque tarda. Hay que utilizar los nanostores
-    const defaultTheme = getCookie('theme')
-    setTheme(
-      null,
-      defaultTheme === 'light' || defaultTheme === 'dark'
-        ? defaultTheme
-        : 'light'
-    )
-  }
-
-  const componentInit = () => {
-    document
-      .querySelectorAll("button[name='app-theme-toggler']")
-      .forEach((elem: Element) => {
-        elem.addEventListener('click', (e: Event) => {
-          const currentTheme =
-            document.documentElement?.getAttribute('data-bs-theme')
-          if (currentTheme === null || currentTheme === 'light') {
-            setTheme(elem as HTMLButtonElement, 'dark')
-          } else {
-            setTheme(elem as HTMLButtonElement, 'light')
-          }
-        })
-      })
-  }
-
-  window.document.addEventListener('astro:page-load', componentInit)
+  $theme.subscribe((theme) => {
+    const currentTheme = localStorage.getItem('theme')
+    console.log('Header', '$theme.subscribe', theme, ' --- ', currentTheme)
+  })
 </script>

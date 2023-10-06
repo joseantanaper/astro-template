@@ -1,0 +1,56 @@
+---
+const { cookie } = Astro.props
+---
+
+<>
+  <button
+    name="app-theme-toggler"
+    type="button"
+    class="btn text-nowrap d-inline-flex"
+  >
+    <i class="bi bi-sun"></i>
+    <span class="d-none d-lg-block text-capitalize text-nowrap ms-1">Theme</span
+    >
+  </button>
+</>
+
+<script>
+  import { $theme, storeTheme, retrieveTheme } from '../../store/store'
+
+  const setTheme = (theme) => {
+    document
+      .querySelectorAll("button[name='app-theme-toggler']")
+      .forEach((elem) => {
+        elem
+          .getElementsByTagName('i')[0]
+          .setAttribute(
+            'class',
+            theme === null || theme === 'dark' ? 'bi bi-sun' : 'bi bi-moon'
+          )
+        // elem.getElementsByTagName('span')[0].innerText = theme
+      })
+    document.documentElement?.setAttribute('data-bs-theme', theme)
+  }
+
+  const componentInit = () => {
+    // Restore stored theme
+    setTheme(localStorage.getItem('theme'))
+
+    document
+      .querySelectorAll("button[name='app-theme-toggler']")
+      .forEach((elem: Element) => {
+        elem.addEventListener('click', (e: Event) => {
+          console.log('ThemeToggler', 'click')
+          const currentTheme =
+            document.documentElement?.getAttribute('data-bs-theme')
+          const newTheme =
+            currentTheme === null || currentTheme === 'light' ? 'dark' : 'light'
+          setTheme(newTheme)
+          storeTheme(newTheme)
+        })
+      })
+  }
+
+  // window.document.addEventListener('astro:after-swap', restoreTheme)
+  window.document.addEventListener('astro:page-load', componentInit)
+</script>
